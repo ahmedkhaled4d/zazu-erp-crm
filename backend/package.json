@@ -1,5 +1,5 @@
 {
-  "name": "Zazu-backend",
+  "name": "idurar-backend",
   "version": "1.0.0",
   "engines": {
     "npm": "8.5.5",
@@ -48,10 +48,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zazu/Zazu-erp-crm/.git"
+    "url": "git+https://github.com/idurar/idurar-erp-crm/.git"
   },
   "bugs": {
-    "url": "https://github.com/Zazu/Zazu-erp-crm//issues"
+    "url": "https://github.com/idurar/idurar-erp-crm//issues"
   },
-  "homepage": "https://github.com/Zazu/Zazu-erp-crm/#readme"
+  "homepage": "https://github.com/idurar/idurar-erp-crm/#readme"
 }

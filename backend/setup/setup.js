@@ -1,45 +1,43 @@
-require("dotenv").config({ path: __dirname + "/../.variables.env" });
+require('dotenv').config({ path: __dirname + '/../.variables.env' });
 
-const mongoose = require("mongoose");
-mongoose.connect(process.env.DATABASE);
+const mongoose = require('mongoose');
+mongoose.connect(
+  'mongodb+srv://ahmedkhaled4d:565656@covacluster0.qbavl02.mongodb.net/idurar?retryWrites=true&w=majority'
+);
 mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
-const fs = require("fs");
+const fs = require('fs');
 async function setupApp() {
   try {
-    const Admin = require("../models/coreModels/Admin");
+    const Admin = require('../models/coreModels/Admin');
     var newAdmin = new Admin();
-    const passwordHash = newAdmin.generateHash("admin123");
+    const passwordHash = newAdmin.generateHash('admin123');
 
     await new Admin({
-      email: "ahmedkhaled4d@gmail.com",
+      email: 'admin@demo.com',
       password: passwordHash,
-      name: "Salah Eddine",
-      surname: "Lalami",
-      role: "admin",
+      name: 'Salah Eddine',
+      surname: 'Lalami',
+      role: 'admin',
     }).save();
 
-    console.log("👍 Admin created : Done!");
+    console.log('👍 Admin created : Done!');
 
-    const Setting = require("../models/coreModels/Setting");
+    const Setting = require('../models/coreModels/Setting');
 
-    const appConfig = JSON.parse(
-      fs.readFileSync(__dirname + "/config/appConfig.json", "utf-8")
-    );
+    const appConfig = JSON.parse(fs.readFileSync(__dirname + '/config/appConfig.json', 'utf-8'));
     const companyConfig = JSON.parse(
-      fs.readFileSync(__dirname + "/config/companyConfig.json", "utf-8")
+      fs.readFileSync(__dirname + '/config/companyConfig.json', 'utf-8')
     );
     const financeConfig = JSON.parse(
-      fs.readFileSync(__dirname + "/config/financeConfig.json", "utf-8")
+      fs.readFileSync(__dirname + '/config/financeConfig.json', 'utf-8')
     );
-    const crmConfig = JSON.parse(
-      fs.readFileSync(__dirname + "/config/crmConfig.json", "utf-8")
-    );
+    const crmConfig = JSON.parse(fs.readFileSync(__dirname + '/config/crmConfig.json', 'utf-8'));
     const customConfig = JSON.parse(
-      fs.readFileSync(__dirname + "/config/customConfig.json", "utf-8")
+      fs.readFileSync(__dirname + '/config/customConfig.json', 'utf-8')
     );
 
     const moneyFormatConfig = JSON.parse(
-      fs.readFileSync(__dirname + "/config/moneyFormatConfig.json", "utf-8")
+      fs.readFileSync(__dirname + '/config/moneyFormatConfig.json', 'utf-8')
     );
 
     await Setting.insertMany([
@@ -50,19 +48,19 @@ async function setupApp() {
       ...moneyFormatConfig,
       ...customConfig,
     ]);
-    console.log("👍 Settings created : Done!");
+    console.log('👍 Settings created : Done!');
 
-    const Email = require("../models/coreModels/Email");
+    const Email = require('../models/coreModels/Email');
     const emailTemplate = JSON.parse(
-      fs.readFileSync(__dirname + "/config/emailTemplate.json", "utf-8")
+      fs.readFileSync(__dirname + '/config/emailTemplate.json', 'utf-8')
     );
 
     await Email.insertMany([...emailTemplate]);
-    console.log("👍 Email Templates Created : Done !");
-    console.log("🥳 Setup completed :Success!");
+    console.log('👍 Email Templates Created : Done !');
+    console.log('🥳 Setup completed :Success!');
     process.exit();
   } catch (e) {
-    console.log("\n🚫 Error! The Error info is below");
+    console.log('\n🚫 Error! The Error info is below');
     console.log(e);
     process.exit();
   }
